@@ -67,6 +67,16 @@ public class CollectBalls extends OpMode {
 
     ElapsedTime timer;
 
+    public static double spHeadingAngle = -90;
+    //public static double tangentAngle = Math.toRadians(45);
+
+    public static double x = -5;
+
+    public static double tangentLine = 90;
+    public static double tangentAngle = 90;
+
+    public static double fullStop = -53;
+
     @Override
     public void init() {
         intake = hardwareMap.get(DcMotor.class, "intake");
@@ -153,10 +163,11 @@ public class CollectBalls extends OpMode {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
-                .lineToLinearHeading(new Pose2d(-11.75, -28, Math.toRadians(-90)))
+                .lineToSplineHeading(new Pose2d(-11.5, -30, Math.toRadians(-100)))
+                .splineToConstantHeading(new Vector2d(-15.5, fullStop), Math.toRadians(70))
 
                 //.waitSeconds(0.5)
-                .forward(25)
+                //.forward(25)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
