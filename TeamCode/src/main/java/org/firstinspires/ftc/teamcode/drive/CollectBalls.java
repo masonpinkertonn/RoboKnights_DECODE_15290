@@ -75,7 +75,10 @@ public class CollectBalls extends OpMode {
     public static double tangentLine = 90;
     public static double tangentAngle = 90;
 
-    public static double fullStop = -53;
+    public static double fullStop = -62;
+    public static double xval = 12.75;
+
+    public static double first = -50;
 
     @Override
     public void init() {
@@ -138,8 +141,8 @@ public class CollectBalls extends OpMode {
 
 
                     corner.setPower(1.0);
-                    vector.setPower(1.0);
-                    intake.setPower(1.0);
+                    vector.setPower(0.7);
+                    intake.setPower(0.7);
 
                 })
                 .waitSeconds(waitTime)
@@ -164,7 +167,7 @@ public class CollectBalls extends OpMode {
                     vector.setPower(1.0);
                 })
                 .lineToSplineHeading(new Pose2d(-11.5, -30, Math.toRadians(-100)))
-                .splineToConstantHeading(new Vector2d(-15.5, fullStop), Math.toRadians(70))
+                .splineToConstantHeading(new Vector2d(-15.5, first), Math.toRadians(70))
 
                 //.waitSeconds(0.5)
                 //.forward(25)
@@ -173,7 +176,7 @@ public class CollectBalls extends OpMode {
                     vector.setPower(0.0);
                 })
                 //.back(25)
-                .splineToSplineHeading(new Pose2d(-25, -25, Math.toRadians(-41)), Math.toRadians(115))
+                .splineToSplineHeading(new Pose2d(-25, -25, Math.toRadians(-45)), Math.toRadians(115))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -193,19 +196,20 @@ public class CollectBalls extends OpMode {
                     vector.setPower(0);
                 })
                 //.turn(Math.toRadians(180))
-                .lineToLinearHeading(new Pose2d(11.75, -28, Math.toRadians(-90)))
                 .addDisplacementMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
+                .lineToSplineHeading(new Pose2d(xval, -30, Math.toRadians(-100)))
+
                 //.waitSeconds(0.1)
-                .forward(27.75)
+                .splineToConstantHeading(new Vector2d(xval - 4, fullStop), Math.toRadians(70))
                 .addDisplacementMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
                 //.back(25)
-                .lineToLinearHeading(new Pose2d(-25, -25, Math.toRadians(-41)))
+                .splineToSplineHeading(new Pose2d(-25, -25, Math.toRadians(-45)), Math.toRadians(115))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -224,20 +228,21 @@ public class CollectBalls extends OpMode {
                     corner.setPower(0.0);
                     vector.setPower(0);
                 })
-                //.turn(Math.toRadians(180))
-                .lineToLinearHeading(new Pose2d(37.25, -28, Math.toRadians(-90)))
                 .addDisplacementMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
+                //.turn(Math.toRadians(180))
+                .lineToSplineHeading(new Pose2d(37.25, -30, Math.toRadians(-90)))
+
                 //.waitSeconds(0.1)
-                .forward(30)
+                .splineToConstantHeading(new Vector2d(33.25, -60), Math.toRadians(70))
                 .addDisplacementMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
                 //.back(25)
-                .lineToLinearHeading(new Pose2d(-25, -25, Math.toRadians(-41)))
+                .splineToSplineHeading(new Pose2d(-25, -25, Math.toRadians(-45)), Math.toRadians(115))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
