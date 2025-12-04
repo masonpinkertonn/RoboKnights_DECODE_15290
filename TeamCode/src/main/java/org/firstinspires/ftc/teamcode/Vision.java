@@ -25,19 +25,24 @@ public class Vision extends OpMode {
 
     @Override
     public void init_loop() {
+        if (!aprilTagProcessor.getDetections().isEmpty())
+        {
         List<AprilTagDetection> currentDetections = aprilTagProcessor.getDetections();
         StringBuilder idsFound = new StringBuilder();
         for (AprilTagDetection detection : currentDetections)
         {
             idsFound.append(detection.id);
-            idsFound.append(" ");
-            idsFound.append(detection.ftcPose.x);
-            idsFound.append(" ");
-            idsFound.append(detection.ftcPose.y);
-            idsFound.append(" ");
-            idsFound.append(detection.ftcPose.z);
+            idsFound.append(" x: ");
+            idsFound.append((int)(detection.ftcPose.x * 100)/100.0);
+            idsFound.append(" y: ");
+            idsFound.append((int)(detection.ftcPose.y * 100)/100.0);
+            idsFound.append(" z: ");
+            idsFound.append((int)(detection.ftcPose.z * 100)/100.0);
+            idsFound.append(" yaw: ");
+            idsFound.append((int)(detection.ftcPose.yaw * 100)/100.0);
         }
         telemetry.addData("id data", idsFound);
+        }
     }
 
     @Override

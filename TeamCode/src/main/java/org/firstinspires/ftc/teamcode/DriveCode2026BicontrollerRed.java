@@ -91,7 +91,7 @@ public class DriveCode2026BicontrollerRed extends LinearOpMode {
 
         double MOTOR_TICKS_PER_REV = 28;
         //double MOTOR_MAX_RPM = 6000;
-        double MOTOR_GEAR_RATIO = 10.0/14;
+        double MOTOR_GEAR_RATIO = 16.0/24;
 
 
         // Stop servo initially
@@ -156,7 +156,7 @@ public class DriveCode2026BicontrollerRed extends LinearOpMode {
 
             //launch button (Y button)
             if(gamepad2.y){
-                double targetVelo = 2000 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+                double targetVelo = 1850 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
                 //targetVelo = ;
 

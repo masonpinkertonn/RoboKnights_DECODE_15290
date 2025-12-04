@@ -88,7 +88,7 @@ public class CollectBallsRed extends OpMode {
 
         MOTOR_TICKS_PER_REV = 28;
         //double MOTOR_MAX_RPM = 6000;
-        MOTOR_GEAR_RATIO = 10.0/14;
+        MOTOR_GEAR_RATIO = 16.0/24;
 
         //launch0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //launch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -123,7 +123,7 @@ public class CollectBallsRed extends OpMode {
 
                     intake.setPower(1.0);
                 })
-                .waitSeconds(3.5)
+                .waitSeconds(4)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     //launch0.setPower(0.0);
@@ -140,21 +140,22 @@ public class CollectBallsRed extends OpMode {
                     launch1.setPower(1.0);
                 })*/
                 .turn(Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
 
-                .splineToSplineHeading(new Pose2d(-11.75, 51, Math.toRadians(90)), Math.toRadians(90))
+                .lineToSplineHeading(new Pose2d(-11.5, 30, Math.toRadians(80)))
+                .splineToConstantHeading(new Vector2d(-15.5, 50), Math.toRadians(70))
 
                 //.waitSeconds(0.5)
                 //.forward(27.5)
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
                 //.back(5)
-                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(115))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -254,7 +255,7 @@ public class CollectBallsRed extends OpMode {
 
 
 
-            double targetVelo = 2000 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+            double targetVelo = 1850 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
             veloController.setTargetVelocity(targetVelo);
             veloController.setTargetAcceleration((targetVelo - lastTargetVelo) / veloTimer.seconds());

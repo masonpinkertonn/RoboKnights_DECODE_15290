@@ -141,8 +141,8 @@ public class CollectBalls extends OpMode {
 
 
                     corner.setPower(1.0);
-                    vector.setPower(0.7);
-                    intake.setPower(0.7);
+                    vector.setPower(1.0);
+                    intake.setPower(1.0);
 
                 })
                 .waitSeconds(waitTime)
@@ -279,7 +279,7 @@ public class CollectBalls extends OpMode {
 
 
 
-            double targetVelo = 2000 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+            double targetVelo = 1850 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
             veloController.setTargetVelocity(targetVelo);
             veloController.setTargetAcceleration((targetVelo - lastTargetVelo) / veloTimer.seconds());
