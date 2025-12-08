@@ -139,13 +139,13 @@ public class CollectBallsRed extends OpMode {
                     launch0.setPower(1.0);
                     launch1.setPower(1.0);
                 })*/
-                .turn(Math.toRadians(180))
+                //.turn(Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
 
-                .lineToSplineHeading(new Pose2d(-11.5, 30, Math.toRadians(80)))
+                .lineToSplineHeading(new Pose2d(-11.5, 20, Math.toRadians(80)))
                 .splineToConstantHeading(new Vector2d(-15.5, 50), Math.toRadians(70))
 
                 //.waitSeconds(0.5)
@@ -155,7 +155,7 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(0.0);
                 })
                 //.back(5)
-                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(115))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(60))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -174,22 +174,22 @@ public class CollectBallsRed extends OpMode {
                     corner.setPower(0.0);
                     vector.setPower(0.0);
                 })
-                .turn(Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                //.turn(Math.toRadians(180))
+                .addTemporalMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
-                .splineToSplineHeading(new Pose2d(13.75, 48, Math.toRadians(90)), Math.toRadians(90))
-                .splineTo(new Vector2d(13.75, 38), Math.toRadians(220))
+                .lineToSplineHeading(new Pose2d(13.75, 20, Math.toRadians(80)))
+                .splineToConstantHeading(new Vector2d(13.75, 38), Math.toRadians(70))
 
                 //.waitSeconds(0.1)
                 //.forward(25)
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
                 //.back(5)
-                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(0))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -200,7 +200,7 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(1.0);
                     intake.setPower(1.0);
                 })
-                .waitSeconds(1)
+                .waitSeconds(3.5)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     //launch0.setPower(0.0);
@@ -209,31 +209,36 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(0.0);
                 })
                 //.turn(Math.toRadians(180))
-                .lineToLinearHeading(new Pose2d(100, 28, Math.toRadians(90)))
-                .addDisplacementMarker(() -> {
+                //.lineToLinearHeading(new Pose2d(100, 28, Math.toRadians(90)))
+                .addTemporalMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
+                .lineToSplineHeading(new Pose2d(37.25, 20, Math.toRadians(80)))
                 //.waitSeconds(0.1)
-                .forward(32.5)
-                .addDisplacementMarker(() -> {
+                .splineToConstantHeading(new Vector2d(33.25, 50), Math.toRadians(70))
+                //.forward(32.5)
+                .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
-                .back(5)
-                .lineToLinearHeading(new Pose2d(-25, 25, Math.toRadians(225)))
+                //.back(5)
+                //.lineToLinearHeading(new Pose2d(-25, 25, Math.toRadians(225)))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(0))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
-                    intake.setPower(0.9);
-                    launch0.setPower(0.65);
-                    launch1.setPower(0.65);
+                    intake.setPower(1.0);
+                    vector.setPower(1.0);
+                    //launch0.setPower(0.65);
+                    //launch1.setPower(0.65);
                     corner.setPower(1.0);
                 })
-                .waitSeconds(7.5)
+                .waitSeconds(3.5)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
-                    launch0.setPower(0.0);
-                    launch1.setPower(0.0);
+                    vector.setPower(0.0);
+                    //launch0.setPower(0.0);
+                    //launch1.setPower(0.0);
                     corner.setPower(0.0);
                 })
                 .build();

@@ -196,7 +196,7 @@ public class CollectBalls extends OpMode {
                     vector.setPower(0);
                 })
                 //.turn(Math.toRadians(180))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
@@ -204,7 +204,7 @@ public class CollectBalls extends OpMode {
 
                 //.waitSeconds(0.1)
                 .splineToConstantHeading(new Vector2d(xval - 4, fullStop), Math.toRadians(70))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
@@ -228,7 +228,7 @@ public class CollectBalls extends OpMode {
                     corner.setPower(0.0);
                     vector.setPower(0);
                 })
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
@@ -237,7 +237,7 @@ public class CollectBalls extends OpMode {
 
                 //.waitSeconds(0.1)
                 .splineToConstantHeading(new Vector2d(33.25, -60), Math.toRadians(70))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
                 })
@@ -253,7 +253,7 @@ public class CollectBalls extends OpMode {
                     vector.setPower(1.0);
                     intake.setPower(1.0);
                 })
-                .waitSeconds(4)
+                .waitSeconds(3.5)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     //launch0.setPower(0.0);
