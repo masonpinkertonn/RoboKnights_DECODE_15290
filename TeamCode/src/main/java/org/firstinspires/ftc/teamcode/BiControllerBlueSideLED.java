@@ -75,7 +75,7 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
         // Configure PWM range (optional but recommended)
         PwmControl.PwmRange ledRange = new PwmControl.PwmRange(500, 2500);
         led.setPwmRange(ledRange);
-        led.setPosition(0); // Start with LED off
+        led.setPosition(0.1); // Start with at red.
 
         // --- Initialize CRServo ---
         corner = hardwareMap.get(CRServo.class, "corner");
@@ -191,8 +191,10 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
                 double velocityRatio = motorVelo / targetVelo;
                 if (velocityRatio >= VELOCITY_THRESHOLD) {
                     led.setPosition(0.5); // LED on when at speed
+                } elseif (velocityRatio >= (VELOCITY_THRESHOLD / 2) ) {
+                    led.setPosition(0.25); 
                 } else {
-                    led.setPosition(0); // LED off when not at speed
+                    led.setPosition(0.1);
                 }
 
                 telemetry.addData("velocity", motorVelo);
