@@ -37,8 +37,8 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static Encoder.Direction frontEncoderDir = Encoder.Direction.REVERSE;
 
 
-    public static double LATERAL_DISTANCE = 13.075272; // in; distance between the left and right wheels
-    public static double FORWARD_OFFSET = 1; // in; offset of the lateral wheel
+    public static double LATERAL_DISTANCE = 13.175272; // in; distance between the left and right wheels
+    public static double FORWARD_OFFSET = 0.0000000001; // in; offset of the lateral wheel
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
 

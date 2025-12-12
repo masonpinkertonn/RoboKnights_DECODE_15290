@@ -33,9 +33,9 @@ public class CollectBallsRed extends OpMode {
 
     TrajectorySequence mySequence;
 
-    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.0000015);
+    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.00095);
 
-    public static double kV = 0.00042;
+    public static double kV = 0.00057;
     public static double kA = 0.0006;
     public static double kStatic = 0;
 
@@ -123,7 +123,7 @@ public class CollectBallsRed extends OpMode {
 
                     intake.setPower(1.0);
                 })
-                .waitSeconds(4)
+                .waitSeconds(3)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     //launch0.setPower(0.0);
@@ -146,7 +146,7 @@ public class CollectBallsRed extends OpMode {
                 })
 
                 .lineToSplineHeading(new Pose2d(-11.5, 20, Math.toRadians(80)))
-                .splineToConstantHeading(new Vector2d(-15.5, 50), Math.toRadians(70))
+                .splineToConstantHeading(new Vector2d(-20.5, 63), Math.toRadians(70))
 
                 //.waitSeconds(0.5)
                 //.forward(27.5)
@@ -155,7 +155,7 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(0.0);
                 })
                 //.back(5)
-                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(60))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(232)), Math.toRadians(60))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -166,7 +166,7 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(1.0);
                     intake.setPower(1.0);
                 })
-                .waitSeconds(3.5)
+                .waitSeconds(3)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     //launch0.setPower(0.0);
@@ -179,8 +179,10 @@ public class CollectBallsRed extends OpMode {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
-                .lineToSplineHeading(new Pose2d(13.75, 20, Math.toRadians(80)))
-                .splineToConstantHeading(new Vector2d(13.75, 38), Math.toRadians(70))
+                .lineToSplineHeading(new Pose2d(5, 20, Math.toRadians(80)))
+                .splineToConstantHeading(new Vector2d(15, 60), Math.toRadians(70))
+                .splineToSplineHeading(new Pose2d(16, 65, Math.toRadians(270)), Math.toRadians(0))
+                //.splineToConstantHeading(new Vector2d(17, 40), Math.toRadians(-90))
 
                 //.waitSeconds(0.1)
                 //.forward(25)
@@ -189,7 +191,7 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(0.0);
                 })
                 //.back(5)
-                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(0))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(225)), Math.toRadians(90))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
 
@@ -200,7 +202,7 @@ public class CollectBallsRed extends OpMode {
                     vector.setPower(1.0);
                     intake.setPower(1.0);
                 })
-                .waitSeconds(3.5)
+                .waitSeconds(3)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     //launch0.setPower(0.0);
@@ -214,9 +216,9 @@ public class CollectBallsRed extends OpMode {
                     intake.setPower(1.0);
                     vector.setPower(1.0);
                 })
-                .lineToSplineHeading(new Pose2d(37.25, 20, Math.toRadians(80)))
+                .lineToSplineHeading(new Pose2d(40, 20, Math.toRadians(80)))
                 //.waitSeconds(0.1)
-                .splineToConstantHeading(new Vector2d(33.25, 50), Math.toRadians(70))
+                .splineToConstantHeading(new Vector2d(33, 50), Math.toRadians(70))
                 //.forward(32.5)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
@@ -224,7 +226,7 @@ public class CollectBallsRed extends OpMode {
                 })
                 //.back(5)
                 //.lineToLinearHeading(new Pose2d(-25, 25, Math.toRadians(225)))
-                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(230)), Math.toRadians(0))
+                .splineToSplineHeading(new Pose2d(-25, 25, Math.toRadians(232)), Math.toRadians(0))
                 //.turn(Math.toRadians(-45))
                 .addTemporalMarker(() -> {
                     intake.setPower(1.0);
@@ -233,7 +235,7 @@ public class CollectBallsRed extends OpMode {
                     //launch1.setPower(0.65);
                     corner.setPower(1.0);
                 })
-                .waitSeconds(3.5)
+                .waitSeconds(3)
                 .addTemporalMarker(() -> {
                     intake.setPower(0.0);
                     vector.setPower(0.0);
@@ -248,6 +250,8 @@ public class CollectBallsRed extends OpMode {
         veloTimer.reset();
 
         timer = new ElapsedTime();
+
+        telemetry.addLine("Ready to go...");
     }
 
     @Override
@@ -260,7 +264,7 @@ public class CollectBallsRed extends OpMode {
 
 
 
-            double targetVelo = 1850 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+            double targetVelo = 1740 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
             veloController.setTargetVelocity(targetVelo);
             veloController.setTargetAcceleration((targetVelo - lastTargetVelo) / veloTimer.seconds());

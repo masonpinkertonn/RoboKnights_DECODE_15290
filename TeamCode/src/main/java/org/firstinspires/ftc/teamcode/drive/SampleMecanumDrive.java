@@ -54,7 +54,7 @@ import java.util.List;
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(5, 0, 1);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(4, 0, 1);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(5, 0, 1);
 
     public static DcMotorSimple.Direction leftFrontDirection = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction leftBackDirection = DcMotorSimple.Direction.REVERSE;

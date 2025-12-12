@@ -12,8 +12,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.PoseStorage;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 @TeleOp(name="DriveCode2026BicontrollerBlue", group="TeleOp")
 public class DriveCode2026Bicontroller extends LinearOpMode {
@@ -42,8 +46,14 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
 
     private Pose2d startPose;
 
+    private AprilTagProcessor aprilTagProcessor;
+    private VisionPortal visionPortal;
+
     @Override
     public void runOpMode() {
+        aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
+
+        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTagProcessor);
 
         drive = new SampleMecanumDrive(hardwareMap);
 
@@ -107,6 +117,26 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            if (!aprilTagProcessor.getDetections().isEmpty())
+            {
+                AprilTagDetection detection = aprilTagProcessor.getDetections().get(0);
+                telemetry.addData("id", detection.id);
+                if (gamepad1.dpad_right && detection.ftcPose.x > 9.8)
+                {
+                    leftFront.setPower(-1.0);
+                    rightFront.setPower(-1.0);
+                    leftBack.setPower(-1.0);
+                    rightBack.setPower(-1.0);
+                }
+                else if (gamepad1.dpad_right && detection.ftcPose.x < 9.2)
+                {
+                    leftFront.setPower(1.0);
+                    rightFront.setPower(1.0);
+                    leftBack.setPower(1.0);
+                    rightBack.setPower(1.0);
+                }
+            }
+
             // Joystick values
             double driveY = -gamepad1.left_stick_y; // forward/back
             double driveX = gamepad1.left_stick_x;  // strafe

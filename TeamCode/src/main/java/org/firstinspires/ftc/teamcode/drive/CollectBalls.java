@@ -43,7 +43,7 @@ public class CollectBalls extends OpMode {
 
     public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.0000015);
 
-    public static double kV = 0.00042;
+    public static double kV = 0.00057;
     public static double kA = 0.0006;
     public static double kStatic = 0;
 
@@ -109,7 +109,7 @@ public class CollectBalls extends OpMode {
 
         MOTOR_TICKS_PER_REV = 28;
         //double MOTOR_MAX_RPM = 6000;
-        MOTOR_GEAR_RATIO = 10.0/14;
+        MOTOR_GEAR_RATIO = 16.0/24;
 
         //launch0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //launch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -279,7 +279,7 @@ public class CollectBalls extends OpMode {
 
 
 
-            double targetVelo = 1850 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+            double targetVelo = 1740 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
             veloController.setTargetVelocity(targetVelo);
             veloController.setTargetAcceleration((targetVelo - lastTargetVelo) / veloTimer.seconds());

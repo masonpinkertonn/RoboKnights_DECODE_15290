@@ -17,7 +17,7 @@ public class PWM_LED_Test extends LinearOpMode {
 
         // OPTIONAL: Configure PWM range (500µs → 2500µs)
         PwmControl.PwmRange ledRange = new PwmControl.PwmRange(500, 2500);
-        led.setPwmRange(ledRange);
+        //led.setPwmRange(ledRange);
 
         waitForStart();
 
