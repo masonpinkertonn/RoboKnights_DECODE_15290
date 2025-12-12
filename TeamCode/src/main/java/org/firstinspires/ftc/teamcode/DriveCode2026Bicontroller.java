@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.drive.CollectBalls.VELOCITY_THRESHOLD;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -10,6 +12,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.PwmControl;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -22,11 +26,13 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 @TeleOp(name="DriveCode2026BicontrollerBlue", group="TeleOp")
 public class DriveCode2026Bicontroller extends LinearOpMode {
 
-    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.0000015);
+    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.00095);
 
-    public static double kV = 0.00042;
+    public static double kV = 0.00057;
     public static double kA = 0.0006;
     public static double kStatic = 0;
+
+    private Servo led;
 
     private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
@@ -73,6 +79,11 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
         launch0.setDirection(DcMotorSimple.Direction.FORWARD);
         launch1.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        led = hardwareMap.get(Servo.class, "led");
+        // Configure PWM range (optional but recommended)
+        PwmControl.PwmRange ledRange = new PwmControl.PwmRange(500, 2500);
+        led.setPosition(0); // Start with LED off
+
         //launch0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //launch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -117,25 +128,7 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            if (!aprilTagProcessor.getDetections().isEmpty())
-            {
-                AprilTagDetection detection = aprilTagProcessor.getDetections().get(0);
-                telemetry.addData("id", detection.id);
-                if (gamepad1.dpad_right && detection.ftcPose.x > 9.8)
-                {
-                    leftFront.setPower(-1.0);
-                    rightFront.setPower(-1.0);
-                    leftBack.setPower(-1.0);
-                    rightBack.setPower(-1.0);
-                }
-                else if (gamepad1.dpad_right && detection.ftcPose.x < 9.2)
-                {
-                    leftFront.setPower(1.0);
-                    rightFront.setPower(1.0);
-                    leftBack.setPower(1.0);
-                    rightBack.setPower(1.0);
-                }
-            }
+
 
             // Joystick values
             double driveY = -gamepad1.left_stick_y; // forward/back
@@ -184,7 +177,7 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
 
             //launch button (Y button)
             if(gamepad2.y){
-                double targetVelo = 1850 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+                double targetVelo = 1740 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
                 //targetVelo = ;
 
@@ -212,10 +205,18 @@ public class DriveCode2026Bicontroller extends LinearOpMode {
                     veloController = new VelocityPIDFController(MOTOR_VELO_PID, kV, kA, kStatic);
                 }
 
+                double velocityRatio = motorVelo / targetVelo;
+                if (velocityRatio >= VELOCITY_THRESHOLD) {
+                    led.setPosition(0.5); // LED on when at speed
+                } else {
+                    led.setPosition(0); // LED off when not at speed
+                }
+
                 telemetry.addData("velocity", motorVelo);
 
             }else{
                 launch0.setPower(0);
+                led.setPosition(0); // LED off when not launching
                 launch1.setPower(0);
             }
 

@@ -25,6 +25,8 @@ public class CollectBallsFar extends OpMode {
     DcMotor intake;
     DcMotor vector;
 
+    public static int speed = 2200;
+
     public static double firstTime = 0;
     public static double secondTime = 7;
     public static double thirdTime = 15;
@@ -41,9 +43,9 @@ public class CollectBallsFar extends OpMode {
 
     TrajectorySequence mySequence;
 
-    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.0000015);
+    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.00095);
 
-    public static double kV = 0.00042;
+    public static double kV = 0.00057;
     public static double kA = 0.0006;
     public static double kStatic = 0;
 
@@ -96,7 +98,7 @@ public class CollectBallsFar extends OpMode {
 
         MOTOR_TICKS_PER_REV = 28;
         //double MOTOR_MAX_RPM = 6000;
-        MOTOR_GEAR_RATIO = 10.0/14;
+        MOTOR_GEAR_RATIO = 16.0/24;
 
         //launch0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //launch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -112,147 +114,30 @@ public class CollectBallsFar extends OpMode {
 
         drive = new SampleMecanumDrive(hardwareMap);
 
-        start = new Pose2d(62, -25, Math.toRadians(-90));
+        start = new Pose2d(62, 25, Math.toRadians(-90));
 
         drive.setPoseEstimate(start);
 
         mySequence = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                .lineToLinearHeading(new Pose2d(0, 0, Math.toRadians(-40)))
-                .addTemporalMarker(() -> {
-
-                    //launch0.setPower(0.65);
-                    //launch1.setPower(0.65);
-                    corner.setPower(1.0);
-                    vector.setPower(1.0);
-                    intake.setPower(1.0);
-                })
-                .waitSeconds(4)
-                .addTemporalMarker(() -> {
-                    intake.setPower(0.0);
-                    //launch0.setPower(0.0);
-                    //launch1.setPower(0.0);
-                    corner.setPower(0.0);
-                    vector.setPower(0.0);
-                })
                 //.lineTo(new Vector2d(10, 0))
                 //.turn(Math.toRadians(-135))
                 /*.splineTo(new Vector2d(11.75, -28), Math.toRadians(-90))
                 .forward(50)
                 .waitSeconds(50)*/
-                .lineToLinearHeading(new Pose2d(37.25, -28, Math.toRadians(-90)))
-                /*.addTemporalMarker(() -> {
-                    intake.setPower(0.6);
-                    launch0.setPower(1.0);
-                    launch1.setPower(1.0);
-                    corner.setPower(1.0);
-                })
-                .waitSeconds(7.5)
+                .waitSeconds(5)
                 .addTemporalMarker(() -> {
-                    intake.setPower(0.0);
-                    launch0.setPower(0.0);
-                    launch1.setPower(0.0);
-                    corner.setPower(0.0);
-                })*/
-                /*.addTemporalMarker(6, () -> {
-                    launch0.setPower(1.0);
-                    launch1.setPower(1.0);
-                })
-                .addTemporalMarker(20, () -> {
-                    launch0.setPower(1.0);
-                    launch1.setPower(1.0);
-                })*/
-                //.lineToLinearHeading(new Pose2d(-11.75, -28, Math.toRadians(-90)))
-                .addDisplacementMarker(() -> {
-                    intake.setPower(1.0);
-                    vector.setPower(1.0);
-                })
-                //.waitSeconds(0.5)
-                .forward(25)
-                .addDisplacementMarker(() -> {
-                    intake.setPower(0.0);
-                    vector.setPower(0.0);
-                })
-                //.back(25)
-                .lineToLinearHeading(new Pose2d(0, 0, Math.toRadians(-30)))
-                //.turn(Math.toRadians(-45))
-                .addTemporalMarker(() -> {
-
-                    //launch0.setPower(0.65);
-                    //launch1.setPower(0.65);
-                    corner.setPower(1.0);
+                    corner.setPower(0.1);
                     vector.setPower(1.0);
                     intake.setPower(1.0);
                 })
-                .waitSeconds(4)
+                .waitSeconds(15)
                 .addTemporalMarker(() -> {
-                    intake.setPower(0.0);
-                    //launch0.setPower(0.0);
-                    //launch1.setPower(0.0);
                     corner.setPower(0.0);
                     vector.setPower(0.0);
-                })
-                //.turn(Math.toRadians(180))
-                .lineToLinearHeading(new Pose2d(11.75, -28, Math.toRadians(-90)))
-                .addDisplacementMarker(() -> {
-                    intake.setPower(1.0);
-                    vector.setPower(1.0);
-                })
-                //.waitSeconds(0.1)
-                .forward(26)
-                .addDisplacementMarker(() -> {
                     intake.setPower(0.0);
-                    vector.setPower(0.0);
                 })
-                //.back(25)
-                .lineToLinearHeading(new Pose2d(0, 0, Math.toRadians(-45)))
-                //.turn(Math.toRadians(-45))
-                .addTemporalMarker(() -> {
-
-                    //launch0.setPower(1.0);
-                    //launch1.setPower(1.0);
-                    corner.setPower(1.0);
-                    vector.setPower(1.0);
-                    intake.setPower(1.0);
-                })
-                .waitSeconds(4)
-                .addTemporalMarker(() -> {
-                    intake.setPower(0.0);
-                    //launch0.setPower(0.0);
-                    //launch1.setPower(0.0);
-                    corner.setPower(0.0);
-                    vector.setPower(0.0);
-                })
-                //.turn(Math.toRadians(180))
-                .lineToLinearHeading(new Pose2d(37.25, -28, Math.toRadians(-90)))
-                .addDisplacementMarker(() -> {
-                    intake.setPower(1.0);
-                    vector.setPower(1.0);
-                })
-                //.waitSeconds(0.1)
-                .forward(30)
-                .addDisplacementMarker(() -> {
-                    intake.setPower(0.0);
-                    vector.setPower(0.0);
-                })
-                //.back(25)
-                .lineToLinearHeading(new Pose2d(0, 0, Math.toRadians(-45)))
-                //.turn(Math.toRadians(-45))
-                .addTemporalMarker(() -> {
-
-                    //launch0.setPower(1.0);
-                    //launch1.setPower(1.0);
-                    corner.setPower(1.0);
-                    vector.setPower(1.0);
-                    intake.setPower(1.0);
-                })
-                .waitSeconds(4)
-                .addTemporalMarker(() -> {
-                    intake.setPower(0.0);
-                    //launch0.setPower(0.0);
-                    //launch1.setPower(0.0);
-                    corner.setPower(0.0);
-                    vector.setPower(0.0);
-                })
+                .turn(Math.toRadians(-80))
+                .forward(50)
                 .build();
 
         drive.followTrajectorySequenceAsync(mySequence);
@@ -272,7 +157,7 @@ public class CollectBallsFar extends OpMode {
 
 
 
-        double targetVelo = 2300 * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
+        double targetVelo = speed * MOTOR_TICKS_PER_REV / MOTOR_GEAR_RATIO / 60;
 
         veloController.setTargetVelocity(targetVelo);
         veloController.setTargetAcceleration((targetVelo - lastTargetVelo) / veloTimer.seconds());

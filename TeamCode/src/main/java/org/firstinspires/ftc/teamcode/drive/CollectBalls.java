@@ -31,6 +31,8 @@ public class CollectBalls extends OpMode {
     public static double fourthTime = 20;
     public static double waitTime = 4;
 
+    public static double VELOCITY_THRESHOLD = 0.95; // 95% of target velocity
+
 
 
     CRServo corner;
@@ -41,7 +43,7 @@ public class CollectBalls extends OpMode {
 
     TrajectorySequence mySequence;
 
-    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.0000015);
+    public static PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(0.0015, 0, 0.00095);
 
     public static double kV = 0.00057;
     public static double kA = 0.0006;
